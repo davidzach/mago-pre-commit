@@ -1,0 +1,26 @@
+- id: mago-lint
+  name: mago lint
+  description: Lint staged PHP files with mago. Fails the commit on issues at or above the fail level (default error).
+  entry: mago-hook lint
+  language: python
+  types: [php]
+  require_serial: true
+  minimum_pre_commit_version: "3.2.0"
+
+- id: mago-analyze
+  name: mago analyze
+  description: Run mago's static analysis on staged PHP files, with the whole project as context. Needs a mago.toml.
+  entry: mago-hook analyze
+  language: python
+  types: [php]
+  require_serial: true
+  minimum_pre_commit_version: "3.2.0"
+
+- id: mago-format
+  name: mago format
+  description: Fail the commit if a staged PHP file is not formatted, showing the diff. Use args [--write] to fix in place.
+  entry: mago-hook format
+  language: python
+  types: [php]
+  require_serial: true
+  minimum_pre_commit_version: "3.2.0"

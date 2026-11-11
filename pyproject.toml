@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mago-pre-commit"
+dynamic = ["version"]
+description = "pre-commit hooks that run the mago PHP toolchain (lint, analyze, format) and block failing commits"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+dependencies = []
+classifiers = [
+    "Environment :: Console",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Version Control :: Git",
+]
+
+[project.urls]
+Repository = "https://github.com/davidzach/mago-pre-commit"
+Changelog = "https://github.com/davidzach/mago-pre-commit/blob/main/CHANGELOG.md"
+
+[project.scripts]
+mago-hook = "mago_pre_commit.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=9.2.0", "pytest-cov>=7.1.0", "ruff>=0.17.3", "mypy>=2.4.1"]
+
+[tool.setuptools.dynamic]
+version = { attr = "mago_pre_commit.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "--cov=mago_pre_commit --cov-report=term-missing --cov-fail-under=90"
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF", "PT"]
+
+[tool.mypy]
+strict = true
+python_version = "3.10"
+files = ["src", "tests"]
+mypy_path = "src"
